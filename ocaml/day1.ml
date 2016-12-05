@@ -32,6 +32,14 @@ module Grid = struct
             | W -> (current_state.x - m.steps, current_state.y)
         in
         { facing = now_facing; x = newX; y = newY}
+
+    let is_same_location (state1: state) (state2: state) : bool =
+        (state1.x = state2.x) && (state1.y = state2.y)
+
+    let blocks_between (state1: state) (state2: state) : int =
+        (abs (state2.x - state1.x)) + (abs (state2.y - state1.y))
+
+    let string_of_state ({x;y}) = Printf.sprintf "{x: %d, y: %d}" x y
 end
 
 
@@ -46,7 +54,7 @@ let day1A () =
         read_day1()
         |> List.fold_left Grid.apply_move Grid.initial_state
     in
-    (abs final_state.Grid.x) + (abs final_state.Grid.y) 
+    Grid.blocks_between Grid.initial_state final_state
 
 let day1B () =
     let moves = read_day1() in
@@ -54,15 +62,19 @@ let day1B () =
         | [] -> None
         | next_move::rest -> 
             let new_state = Grid.apply_move current_state next_move in
-            let has_seen_state = List.exists (fun s -> s.Grid.x = new_state.Grid.x && s.Grid.y = new_state.Grid.y) seen_states in
+            let has_seen_state = List.exists (Grid.is_same_location new_state) seen_states in
+            (* Printf.printf "current_state: %s\n" (Grid.string_of_state current_state); *)
+            (* Printf.printf "new_state: %s\n" (Grid.string_of_state new_state); *)
+            (* Printf.printf "seen_state: %s\n" (List.map Grid.string_of_state seen_states |> String.concat "\n\t "); *)
+            (* Printf.printf "has_seen_state: %b\n" has_seen_state; *)
             if has_seen_state
             then Some new_state
             else step (new_state :: seen_states) new_state rest
     in
     step [Grid.initial_state] Grid.initial_state moves
     |> (function 
-            | None -> 0
-            | Some final_state -> (abs final_state.Grid.x) + (abs final_state.Grid.y))
+            | None -> failwith "Something went wrong; we didn't visit any state twice"
+            | Some final_state -> Grid.blocks_between Grid.initial_state final_state)
 
 let () = 
     let day1A_result = day1A() in
