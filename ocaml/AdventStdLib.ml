@@ -14,9 +14,8 @@ let rec int_range (start: int) (stop: int) ?step:(s=1) : int list =
     if start = stop 
     then []
     else 
-        match (s > 0, start > stop) with
-        | true, true  -> []
-        | true, false -> start :: (int_range (start + s) stop ~step:s)
-        | false, true -> start :: (int_range (start + s) stop ~step:s)
-        | false, false -> []
+        match start > stop with
+        | true  when s < 0 -> start :: (int_range (start + s) stop ~step:s)
+        | false when s > 0 -> start :: (int_range (start + s) stop ~step:s)
+        | _ -> []
 

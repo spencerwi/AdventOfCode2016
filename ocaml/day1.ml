@@ -78,7 +78,7 @@ module Grid = struct
     module StateSet = Set.Make(struct
         type t = state
         let compare s1 s2 = 
-            if s1.x = s2.x && s1.y = s2.y 
+            if is_same_location s1 s2
             then 0
             else compare (string_of_state s1) (string_of_state s2)
     end)
@@ -88,7 +88,6 @@ end
 let read_day1 () : Grid.move list =
     AdventStdLib.read_lines_from_file "../inputs/day1.txt"
     |> (fun l -> List.nth l 0)
-    (* "R8, R4, R4, R8" *)
     |> Str.split (Str.regexp ", ")
     |> List.map Grid.parse_move
 
@@ -106,20 +105,13 @@ let day1B () =
         | next_move::rest -> 
             let new_state = Grid.apply_move current_state next_move in
             let states_traversed = Grid.states_between current_state new_state in
-            (* Printf.printf "%s-->" (Grid.string_of_state current_state); *)
-            (* List.map Grid.string_of_state states_traversed |> String.concat "-->" |> print_string; *)
-            (* Printf.printf "-->%s" (Grid.string_of_state new_state); *)
-            let has_seen_spot = List.exists (fun state -> Grid.StateSet.mem state seen_states) states_traversed in
+            let has_seen_spot = List.exists (fun state -> Grid.StateSet.exists (Grid.is_same_location state) seen_states) states_traversed in
             if has_seen_spot
-            then begin
-                (* print_endline ""; *)
-                let state_already_seen = List.find (fun state -> Grid.StateSet.mem state seen_states) states_traversed in
+            then 
+                let state_already_seen = List.find (fun state -> (Grid.StateSet.exists (Grid.is_same_location state) seen_states)) states_traversed in
                 Some state_already_seen
-            end
-            else begin
-                (* print_string "-->"; *)
+            else 
                 find_twice_visited_spot (Grid.StateSet.union seen_states (Grid.StateSet.of_list (states_traversed @ [new_state]))) new_state rest
-            end
     in
     find_twice_visited_spot (Grid.StateSet.singleton Grid.initial_state) Grid.initial_state moves
     |> (function 
