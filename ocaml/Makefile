@@ -1,4 +1,4 @@
-all: day1 day2
+all: day1 day2 day3
 
 clean:
 	@$(RM) *.byte *.native
@@ -12,4 +12,9 @@ day1: clean
 day2: clean
 	@ocamlc str.cma AdventStdLib.ml day2.ml -o day2.native
 	@./day2.native
+
+day3: clean
+	@ocamlc str.cma AdventStdLib.ml day3.ml -o day3.native
+	@./day3.native
+
 
