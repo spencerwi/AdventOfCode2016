@@ -1,2 +1,3 @@
 true: package(str)
 <day5.*>: package(batteries)
+<day6.*>: package(batteries)

@@ -107,3 +107,4 @@ let str_contains s1 s2 =
     match (Str.search_forward regexp s1 0) with 
     | exception Not_found -> false
     | _ -> true
+

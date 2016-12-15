@@ -13,12 +13,19 @@ let day5a () =
     let get_sixth_char hash = 
         (String.get hash 5) |> String.make 0 
     in
-    BatLazyList.from_loop 0 (fun i -> hash_with_num i, i + 1)
-    |> BatLazyList.filter starts_with_five_zeroes
-    |> BatLazyList.map get_sixth_char
-    |> BatLazyList.take 8
-    |> BatLazyList.to_list
-    |> String.concat ""
+    let found = ref 0 in
+    let results = ref [] in
+    let i = ref 0 in
+    while (!found < 8) do
+        let hashed = hash_with_num !i in
+        if starts_with_five_zeroes hashed 
+        then begin
+            results := ((get_sixth_char hashed)::(!results));
+            found := (!found) + 1
+        end;
+        i := (!i) + 1
+    done;
+    String.concat "" !results
 
 let day5b () = 
     (* TODO: This! *)

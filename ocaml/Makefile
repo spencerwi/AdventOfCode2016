@@ -28,5 +28,7 @@ day5: clean deps
 	@ocamlbuild -quiet -use-ocamlfind -cflags "-w +a-4-6-7-8-9-16-27-29..39-41..42-44-45-48-50-60" day5.native 
 	@./day5.native
 
-
+day6: clean deps
+	@ocamlbuild -quiet -use-ocamlfind -cflags "-w +a-4-6-7-8-9-16-27-29..39-41..42-44-45-48-50-60" day6.native 
+	@./day6.native
 
