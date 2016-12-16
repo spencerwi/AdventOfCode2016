@@ -1,0 +1,11 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+day5a	src/main.rs	/^fn day5a(prefix: &str){$/;"	f
+day5b	src/main.rs	/^fn day5b(prefix: &str){$/;"	f
+main	src/main.rs	/^fn main() {$/;"	f
+nth_char	src/main.rs	/^fn nth_char(s: String, n: usize) -> char {$/;"	f
+starts_with_five_zeroes	src/main.rs	/^fn starts_with_five_zeroes(hashed: [u8; 16]) -> bool {$/;"	f

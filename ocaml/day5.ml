@@ -2,8 +2,8 @@ let day5_input = "wtnhxymk"
 
 let hash_with_num n =
     (day5_input ^ (string_of_int n))
-    |> Digest.bytes
-    |> Digest.to_hex
+    |> Cryptohash_md5.string 
+    |> Cryptohash_md5.to_hex
 
 
 let day5a () = 

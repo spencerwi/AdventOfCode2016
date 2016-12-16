@@ -3,3 +3,4 @@ B _build
 FLG -w +a-4-6-7-8-9-16-27-29..39-41..42-44-45-48-50-60
 PKG batteries
 PKG angstrom
+PKG cryptohash
