@@ -9,6 +9,9 @@ clean:
 deps:
 	@opam install batteries angstrom cryptohash
 
+stdlib: clean deps
+	@ocamlbuild -quiet -use-ocamlfind -cflags "-w +a-4-6-7-8-9-16-27-29..39-41..42-44-45-48-50-60" AdventStdLib.cma
+
 day%: clean deps
 	@ocamlbuild -quiet -use-ocamlfind -cflags "-w +a-4-6-7-8-9-16-27-29..39-41..42-44-45-48-50-60" $@.native
 	@./$@.native
