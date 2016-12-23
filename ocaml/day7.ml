@@ -83,11 +83,11 @@ module IP7Addr = struct
             |> List.map get_abas
             |> List.flatten
         in
-        if List.length abas = 0 
+        if abas = []
         then false
         else
             abas 
-            |> List.for_all (fun aba ->
+            |> List.exists (fun aba ->
                 let bab_for_aba = 
                     let a = String.get aba 0 |> String.make 1 in
                     let b = String.get aba 1 |> String.make 1 in
